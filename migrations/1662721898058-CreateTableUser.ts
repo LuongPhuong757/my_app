@@ -6,8 +6,8 @@ export class CreateTableUser1662721898058 implements MigrationInterface {
     await queryRunner.query(
       'CREATE TABLE `users` ( ' +
       '`id` int NOT NULL AUTO_INCREMENT, ' +
-      '`name` varchar(200) NULL,' +
-      '`password` varchar(200) NULL, ' +
+      '`name` varchar(200) DEFAULT NULL,' +
+      '`password` varchar(200) DEFAULT NULL, ' +
       '`email` varchar(200) NOT NULL,' +
       '`roles` varchar(200) NOT NULL,' +
       '`created_at` datetime(6) NOT NULL DEFAULT current_timestamp(6),' +
