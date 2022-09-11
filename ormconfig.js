@@ -1,11 +1,11 @@
 module.exports = {
   type: 'mysql',
-  host: 'localhost',
-  port: 3311,
-  username: 'root',
-  password: '1',
-  database: 'my_app',
-  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : null,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  entities: [__dirname + 'entities/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   migrationsRun: false,
   cli: {
