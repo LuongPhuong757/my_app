@@ -1,5 +1,7 @@
+import { InjectQueue } from '@nestjs/bull'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { Queue } from 'bull'
 import { UserOtp } from 'entities/user-otp-code.entity'
 import { User } from 'entities/user.entity'
 import { MailService } from 'src/mail/mail.service'
@@ -11,21 +13,26 @@ import { VerifyOtpDto } from './dtos/verify-otp.dto'
 @Injectable()
 export class UserOtpService {
   constructor(
-    private mailService : MailService,
+    private mailService: MailService,
     @InjectRepository(UserOtp)
     private readonly repository: Repository<UserOtp>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+    @InjectQueue('send-mail') private mailQueue: Queue
+  ) { }
 
   async getOTPbyType(userOtpDto: CreateUserOtpDto): Promise<OTP_RESPONSE> {
     const code = Math.floor(100000 + Math.random() * 900000)
     const expiredSeconds = EXPIRED_CODE
     const expiredAt =
       Math.round(new Date().getTime() / 1000) + expiredSeconds
-    await this.mailService.send(
-      code
-    )
+    const mailOptions = {
+      from: 'phuong.luong@sotatek.com',
+      to: userOtpDto.email,
+      subject: "oke",
+      html: `<p>${code}</p>`
+    }
+    await this.mailQueue.add('sendMail', { mailOptions })
     await this.repository.save({
       email: userOtpDto.email,
       code,

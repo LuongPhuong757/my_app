@@ -16,7 +16,7 @@ async function bootstrap() {
   // config login swagger
   const documentApi = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(`/swagger`, app, documentApi);
-
+  app.enableCors()
   await app.listen(4000);
 }
 bootstrap();

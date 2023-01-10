@@ -14,6 +14,22 @@ export class SignupDto {
     })
     email: string
 
+    @IsEmail()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: 'userName',
+        default: 'anh.nguyen5'
+    })
+    userName: string
+
+    @IsNumber()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: 'password',
+        default: 123456
+    })
+    password: string
+
     @IsNumber()
     @IsNotEmpty()
     @ApiProperty({

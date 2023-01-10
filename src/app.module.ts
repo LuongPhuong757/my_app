@@ -4,10 +4,13 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailModule } from './mail/mail.module';
-// import { DataSource } from 'typeorm';
+import { BullModule } from '@nestjs/bull';
 import 'dotenv/config';
 import { UserOtpModule } from './user-otp/user-otp.module';
 import { AuthModule } from './auth/auth.module';
+import { RoomsModule } from './rooms/rooms.module';
+import { UserModule } from './user/user.module';
+import { MessageModule } from './message/message.module';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -36,9 +39,18 @@ import { AuthModule } from './auth/auth.module';
         debug: true,
       },
     }),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     MailModule,
     UserOtpModule,
-    AuthModule
+    AuthModule,
+    RoomsModule,
+    UserModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

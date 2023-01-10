@@ -1,7 +1,5 @@
 import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable } from "@nestjs/common";
-// import { VerifyUserDto } from "../users/dto/verify-user.dto";
-
 @Injectable()
 export class MailService {
   constructor(private readonly mailerService: MailerService) { }

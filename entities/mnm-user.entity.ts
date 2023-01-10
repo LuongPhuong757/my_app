@@ -8,26 +8,16 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
-@Entity('users')
-export class User extends BaseEntity {
+@Entity('users_mnm')
+export class UserMNM extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column({ default: '', length: 100 })
   userName: string
 
-  @Column({ default: '', length: 100 })
-  avatar: string
-
   @Column()
   password: string
-
-  @Column('simple-array')
-  roles: string[]
-
-  @Unique('email', ['email'])
-  @Column({ length: 200 })
-  email: string
 
   @CreateDateColumn({ name: 'created_at', nullable: true })
   createdAt: Date

@@ -14,7 +14,7 @@ export class CreateUserOtpDto {
   @IsEmail()
   @ApiProperty({
     description: 'email user',
-    default: 'anh.nguyen5@sotatek.com'
+    default: 'luongphuong757@gmail.com'
   })
   email: string
 
